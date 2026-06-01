@@ -1,0 +1,14 @@
+Pipeline Overview
+Features used:
+TypeFeaturesTextReview title + body (TF-IDF, 5,000 bigrams)NumericalAge, Positive Feedback Count, Review LengthCategoricalDivision Name, Department Name, Class Name
+Three models were trained and compared via 5-fold cross-validation:
+ModelCV ROC-AUCLogistic Regression ✓0.9442 ± 0.006Random Forest0.9203 ± 0.007Gradient Boosting0.9174 ± 0.009
+
+Results (Best Model: Logistic Regression)
+MetricScoreROC-AUC0.9428Accuracy88.2%F1 (weighted)88.8%
+Key takeaways from the dashboard:
+
+ROC curve shows excellent separation — a 0.94 AUC means the model correctly ranks a recommender above a non-recommender 94% of the time.
+Confusion matrix shows the model is especially strong at catching true recommendations (recall 89%), while flagging non-recommendations reasonably well (recall 83%).
+Top features: Words like love, perfect, flattering strongly predict recommendations, while disappointed, returned, tight pull toward non-recommendation — exactly what you'd expect.
+Class imbalance (82% recommend vs 18% not): handled via class_weight="balanced" to avoid the model just predicting "recommend" for everything.
